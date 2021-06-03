@@ -1,5 +1,5 @@
 module.exports = {
-  root: true,
+  root: false,
   env: {
     browser: true,
     node: true
@@ -14,5 +14,8 @@ module.exports = {
   plugins: [
   ],
   // add your custom rules here
-  rules: {}
+  rules: {
+    "eol-last": 0,
+ "no-multiple-empty-lines": ["error", { "max": 1, "maxEOF": 0 }],
+  }
 }
