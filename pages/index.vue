@@ -1,13 +1,14 @@
 <template>
-  <v-data-table :headers="headers" :items="desserts" sort-by="calories" class="elevation-1">
+  <v-data-table :headers="headers" :items="Surveys" sort-by="calories" class="elevation-1">
     <template v-slot:top>
       <v-toolbar flat>
         <v-toolbar-title>Survey Page For VISA</v-toolbar-title>
+
         <v-divider class="mx-4" inset vertical></v-divider>
         <v-spacer></v-spacer>
         <v-dialog v-model="dialog" max-width="500px">
           <template v-slot:activator="{ on, attrs }">
-            <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on">Create New Survey</v-btn>
+            <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on">Create A New Survey</v-btn>
           </template>
           <v-card>
             <v-card-title>
@@ -20,8 +21,10 @@
                   <v-col cols="12" sm="6" md="4">
                     <v-text-field v-model="editedItem.name" label="Survey name"></v-text-field>
                   </v-col>
-                  <v-col cols="12" sm="6" md="4">
-                    <v-text-field v-model="editedItem.calories" label="Add survey description"></v-text-field>
+                </v-row>
+                <v-row>
+                  <v-col cols="12" sm="6" md="10">
+                    <v-textarea v-model="editedItem.calories" label="Add survey description"></v-textarea>
                   </v-col>
                 </v-row>
               </v-container>
@@ -73,19 +76,19 @@ export default {
       { text: "Descriptions", value: "calories" },
       { text: "Actions", value: "actions", sortable: false }
     ],
-    desserts: [],
+    Surveys: [],
     editedIndex: -1,
     nextPageIndex: 0,
     editedItem: {
       name: "",
-      calories: 0,
+      calories: "",
       fat: 0,
       carbs: 0,
       protein: 0
     },
     defaultItem: {
       name: "",
-      calories: 0,
+      calories: "",
       fat: 0,
       carbs: 0,
       protein: 0
@@ -93,7 +96,7 @@ export default {
   }),
   computed: {
     formTitle() {
-      return this.editedIndex === -1 ? "New Item" : "Edit Item"
+      return this.editedIndex === -1 ? "New Survey" : "Edit Survey"
     }
   },
   watch: {
@@ -109,7 +112,7 @@ export default {
   },
   methods: {
     initialize() {
-      this.desserts = [
+      this.Surveys = [
         {
           name: "New Survey",
           calories: "test survey",
@@ -127,20 +130,20 @@ export default {
       ]
     },
     editItem(item) {
-      this.editedIndex = this.desserts.indexOf(item)
+      this.editedIndex = this.Surveys.indexOf(item)
       this.editedItem = Object.assign({}, item)
       this.dialog = true
     },
     navigate(item) {
-      this.nextPageIndex = this.desserts.indexOf(item)
+      this.nextPageIndex = this.Surveys.indexOf(item)
     },
     deleteItem(item) {
-      this.editedIndex = this.desserts.indexOf(item)
+      this.editedIndex = this.Surveys.indexOf(item)
       this.editedItem = Object.assign({}, item)
       this.dialogDelete = true
     },
     deleteItemConfirm() {
-      this.desserts.splice(this.editedIndex, 1)
+      this.Surveys.splice(this.editedIndex, 1)
       this.closeDelete()
     },
     close() {
@@ -159,9 +162,9 @@ export default {
     },
     save() {
       if (this.editedIndex > -1) {
-        Object.assign(this.desserts[this.editedIndex], this.editedItem)
+        Object.assign(this.Surveys[this.editedIndex], this.editedItem)
       } else {
-        this.desserts.push(this.editedItem)
+        this.Surveys.push(this.editedItem)
       }
       this.close()
     }
