@@ -50,7 +50,7 @@
     <template v-slot:item.actions="{ item }">
       <v-icon small class="mr-2" @click="editItem(item)">mdi-pencil</v-icon>
       <v-icon small @click="deleteItem(item)">mdi-delete</v-icon>
-      <v-btn color="blue darken-1" text @click="navigate(item)" to="/steps">Open</v-btn>
+      <v-btn color="blue darken-1" text @click="navigate(item)" to="/canvas">Open</v-btn>
     </template>
     <template v-slot:no-data>
       <v-btn color="primary" @click="initialize">Reset</v-btn>
